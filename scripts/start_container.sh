@@ -1,8 +1,16 @@
 #!/bin/bash
-set -e
 
-# Pull the Docker Image from ECR/Docker
-docker pull 796973514691.dkr.ecr.ap-south-1.amazonaws.com/mydemo
+# Set variables
+REGION="ap-south-1"
+ACCOUNT_ID="796973514691"
+REPOSITORY_NAME="mydemo"
 
-# Run Container 
-docker run -d -p 5000:5000 796973514691.dkr.ecr.ap-south-1.amazonaws.com/mydemo
+# Authenticate to ECR
+aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
+
+# Pull the Docker image from ECR (using the "latest" tag)
+docker pull $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
+
+# Run the Docker container (optional, customize as needed)
+docker run -d --name mycontainer $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
+
