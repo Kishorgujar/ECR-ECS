@@ -18,6 +18,7 @@ phases:
     commands:
       - echo "Running tests..."
       - cd simple-python-app/
+      - echo aws ecr get-login-password --region ap-south-1 | docker login -u "$registry_username" --password-stdin "$registry_url"
       - echo "Building Docker image..."
       - echo "$registry_password" | docker login -u "$registry_username" --password-stdin "$registry_url"
       - docker build -t "$registry_url:latest" .
