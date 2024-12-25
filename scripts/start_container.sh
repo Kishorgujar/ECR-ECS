@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Download Prerequisites
+sudo apt  install docker.io
+sudo snap install aws-cli --classic
+
 # Set variables
 REGION="ap-south-1"
 ACCOUNT_ID="796973514691"
