@@ -6,6 +6,8 @@ env:
     registry_password: registry_password
     registry_url: registry_url
     repo_username: repo_username
+    registry_region: registry_region
+    registry_accountid: registry_accountid
 phases:
   install:
     runtime-versions:
@@ -18,7 +20,7 @@ phases:
     commands:
       - echo "Running tests..."
       - cd simple-python-app/
-      - echo aws ecr get-login-password --region ap-south-1 | docker login -u "$registry_username" --password-stdin "$registry_url"
+      - aws ecr get-login-password --region "$registry_region" | docker login --username "$registry_username" --password-stdin "$registry_accountid".dkr.ecr."$registry_region".amazonaws.com
       - echo "Building Docker image..."
       - echo "$registry_password" | docker login -u "$registry_username" --password-stdin "$registry_url"
       - docker build -t "$registry_url:latest" .
@@ -29,4 +31,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: ../simple-python-app
+  base-directory: simple-python-app
