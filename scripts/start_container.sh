@@ -12,7 +12,7 @@ aws ecr get-login-password --region $REGION | docker login --username AWS --pass
 docker pull $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
 
 # Remove Exist Container
-docker rm -f --name mycontainer $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
+docker rm -f $CONTAINER_NAME
 
 # Run the Docker container (optional, customize as needed)
 docker run -d --name mycontainer $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
